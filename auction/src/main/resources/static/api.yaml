@@ -1,0 +1,413 @@
+openapi: 3.0.0
+info:
+  title: Auction System API
+  version: 1.0.0
+  description: API для управления аукционами, лотами и пользователями
+servers:
+  - url: http://localhost:10000/api/auction
+paths:
+  /lots:
+    get:
+      summary: Получить список всех лотов
+      operationId: getAllLots
+      tags:
+        - Lot
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LotDTO'
+    post:
+      summary: Создать новый лот
+      operationId: createLot
+      tags:
+        - Lot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotDTO'
+      responses:
+        '201':
+          description: Лот создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LotDTO'
+
+  /lots/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Получить лот по ID
+      operationId: getLotById
+      tags:
+        - Lot
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LotDTO'
+        '404':
+          description: Лот не найден
+    put:
+      summary: Обновить лот
+      operationId: updateLot
+      tags:
+        - Lot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotDTO'
+      responses:
+        '200':
+          description: Лот обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LotDTO'
+    delete:
+      summary: Удалить лот
+      operationId: deleteLot
+      tags:
+        - Lot
+      responses:
+        '204':
+          description: Лот удален
+        '404':
+          description: Лот не найден
+
+  /users:
+    get:
+      summary: Получить список всех пользователей
+      operationId: getAllUsers
+      tags:
+        - User
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+    post:
+      summary: Создать нового пользователя
+      operationId: createUser
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '201':
+          description: Пользователь создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+
+  /users/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Получить пользователя по ID
+      operationId: getUserById
+      tags:
+        - User
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+        '404':
+          description: Пользователь не найден
+    put:
+      summary: Обновить пользователя
+      operationId: updateUser
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Пользователь обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    delete:
+      summary: Удалить пользователя
+      operationId: deleteUser
+      tags:
+        - User
+      responses:
+        '204':
+          description: Пользователь удален
+        '404':
+          description: Пользователь не найден
+
+  /auctions:
+    get:
+      summary: Получить список всех аукционов
+      operationId: getAllAuctions
+      tags:
+        - Auction
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuctionDTO'
+    post:
+      summary: Создать новый аукцион
+      operationId: createAuction
+      tags:
+        - Auction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuctionDTO'
+      responses:
+        '201':
+          description: Аукцион создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionDTO'
+
+  /auctions/open:
+    get:
+      summary: Получить список всех открытых аукционов
+      operationId: getOpenAuctions
+      tags:
+        - Auction
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuctionDTO'
+
+  /auctions/closed:
+    get:
+      summary: Получить список всех закрытых аукционов
+      operationId: getClosedAuctions
+      tags:
+        - Auction
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuctionDTO'
+
+  /auctions/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      summary: Получить аукцион по ID
+      operationId: getAuctionById
+      tags:
+        - Auction
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionDTO'
+        '404':
+          description: Аукцион не найден
+    put:
+      summary: Обновить аукцион
+      operationId: updateAuction
+      tags:
+        - Auction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuctionDTO'
+      responses:
+        '200':
+          description: Аукцион обновлен
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionDTO'
+    delete:
+      summary: Удалить аукцион
+      operationId: deleteAuction
+      tags:
+        - Auction
+      responses:
+        '204':
+          description: Аукцион удален
+        '404':
+          description: Аукцион не найден
+
+  /auctions/finish/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+
+  /deals:
+    post:
+      summary: Подать заявку на аукцион
+      operationId: createDeal
+      tags:
+        - Deal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DealDTO'
+      responses:
+        '201':
+          description: Сделка создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuctionDTO'
+
+
+components:
+  schemas:
+    LotDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+      required:
+        - id
+        - name
+        - email
+
+    AuctionDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        isActive:
+          type: boolean
+        lastUser:
+          type: string
+          format: uuid
+        lastPrice:
+          type: integer
+          format: int64
+        startPrice:
+          type: integer
+          format: int64
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        lotId:
+          type: string
+          format: uuid
+      required:
+        - id
+        - title
+        - startTime
+        - endTime
+
+    DealDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        auctionId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        price:
+          type: integer
+          format: int64
+      required:
+        - id
+        - auctionId
+        - userId
+        - price
