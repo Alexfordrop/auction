@@ -13,6 +13,6 @@ import java.util.UUID;
 public interface UserClient extends UserApi {
 
     @Override
-    @GetMapping("/api/auction/{userId}")
-    ResponseEntity<UserDTO> getUserById(@PathVariable("id") UUID userId);
+    @GetMapping("/api/auction/users/{userId}")
+    ResponseEntity<UserDTO> getUserById(@PathVariable("userId") UUID userId);
 }

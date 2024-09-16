@@ -20,5 +20,5 @@ public class AuctionNotificationConsumer {
     public void handle(@Payload AuctionDTO auction) {
         UserDTO user = userClient.getUserById(auction.getLastUser()).getBody();
         System.out.println(user);
-        }
+    }
 }
